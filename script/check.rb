@@ -77,9 +77,36 @@ puts "\nJavaScript"
 
 js_files = Dir[File.join(ROOT, "assets/javascripts/**/*.js")]
 
-check("javascript parses") do
-  bad = js_files.reject { |f| system("node", "--check", f, out: File::NULL, err: File::NULL) }
-  bad.empty? || bad.map { |f| File.basename(f) }.join(", ")
+# `node --check` on a .js file parses it as a script, and a script
+# tolerates things a module does not — notably an `export` nested inside
+# a function, which is exactly what a bad edit produces and what
+# Discourse's build then rejects with "'import' and 'export' may only
+# appear at the top level". Copying to .mjs forces module parsing.
+check("javascript parses as an ES module") do
+  require "tmpdir"
+
+  bad = []
+  Dir.mktmpdir do |dir|
+    js_files.each do |file|
+      copy = File.join(dir, "#{File.basename(file, ".js")}.mjs")
+      File.write(copy, File.read(file))
+      bad << File.basename(file) unless system("node", "--check", copy, out: File::NULL, err: File::NULL)
+    end
+  end
+
+  bad.empty? || "module syntax errors in #{bad.join(", ")}"
+end
+
+# Proves the check above can fail. A syntax check that cannot detect the
+# bug it was written for is worse than none, because it reassures.
+check("the module syntax check can actually fail") do
+  require "tmpdir"
+
+  Dir.mktmpdir do |dir|
+    broken = File.join(dir, "broken.mjs")
+    File.write(broken, "function outer() {\nexport default function () {};\n}\n")
+    system("node", "--check", broken, out: File::NULL, err: File::NULL) ? "nested export was not caught" : true
+  end
 end
 
 check("imported plugin modules resolve to real files") do

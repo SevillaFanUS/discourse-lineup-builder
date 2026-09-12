@@ -2,7 +2,7 @@
 
 # name: discourse-lineup-builder
 # about: Pick a formation, fill it with squad players, and post the XI into a topic.
-# version: 0.1.0
+# version: 0.2.0
 # authors: Chris Lail
 # url: https://github.com/SevillaFanUS/discourse-lineup-builder
 # required_version: 3.0.0

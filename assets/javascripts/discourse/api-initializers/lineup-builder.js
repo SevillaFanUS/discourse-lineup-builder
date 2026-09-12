@@ -358,6 +358,7 @@ function wire(container, api) {
       state.notice = "Image saved.";
     });
   });
+}
 
 // Drawing waits on eleven photo loads, so the button has to show that
 // something is happening and has to recover cleanly if it does not.
