@@ -1,0 +1,18 @@
+plugins:
+  lineup_builder_enabled:
+    client: true
+    default: false
+
+  # Where the squad comes from. This is the public endpoint provided by
+  # discourse-sevilla-players.
+  lineup_builder_players_url:
+    client: true
+    default: "/players/data.json?scope=first_team"
+
+  lineup_builder_default_formation:
+    client: true
+    default: "4-4-2"
+
+  lineup_builder_title:
+    client: true
+    default: "Lineup builder"

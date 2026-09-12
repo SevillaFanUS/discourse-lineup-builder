@@ -1,0 +1,285 @@
+#lineup-builder {
+  .lb-wrap {
+    padding: 1em 0 3em;
+  }
+
+  .lb-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: flex-end;
+    margin-bottom: 1em;
+  }
+
+  .lb-field {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-size: 0.8em;
+      color: var(--primary-medium);
+      margin-bottom: 0.2em;
+    }
+
+    select,
+    input {
+      margin: 0;
+    }
+  }
+
+  .lb-grow {
+    flex: 1 1 16em;
+  }
+
+  .lb-stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: flex-start;
+  }
+
+  .lb-pitch {
+    position: relative;
+    flex: 1 1 340px;
+    max-width: 520px;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(
+      180deg,
+      var(--lb-turf-dark, #2f7a43) 0%,
+      var(--lb-turf, #368c4d) 50%,
+      var(--lb-turf-dark, #2f7a43) 100%
+    );
+    border-radius: 0.4em;
+    overflow: hidden;
+  }
+
+  .lb-markings {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.45);
+    stroke-width: 0.6;
+  }
+
+  .lb-slot {
+    position: absolute;
+    // The coordinates describe the player's feet, so shift the control
+    // back by half its own width to centre it on that point.
+    transform: translate(-50%, 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15em;
+    width: 4.6em;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+
+    &:hover .lb-shirt,
+    &.lb-active .lb-shirt {
+      transform: scale(1.08);
+      border-color: #fff;
+    }
+  }
+
+  .lb-shirt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6em;
+    height: 2.6em;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.28);
+    border: 2px dashed rgba(255, 255, 255, 0.6);
+    font-size: 0.95em;
+    font-weight: 700;
+    transition: transform 0.12s ease;
+
+    &.lb-filled {
+      background: var(--tertiary);
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  .lb-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    // Cover rather than contain: headshots vary wildly in aspect ratio
+    // and a squashed face is worse than a tight crop.
+    object-fit: cover;
+  }
+
+  // Sits under the photo, so it shows through automatically if the image
+  // fails to load and removes itself.
+  .lb-fallback {
+    font-size: 0.85em;
+    letter-spacing: 0.02em;
+  }
+
+  .lb-name {
+    font-size: 0.66em;
+    line-height: 1.15;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  .lb-empty {
+    opacity: 0.8;
+  }
+
+  .lb-picker {
+    flex: 1 1 260px;
+    max-width: 340px;
+    border: 1px solid var(--primary-low);
+    border-radius: 0.4em;
+    background: var(--secondary);
+    padding: 0.75em;
+    max-height: 520px;
+    overflow-y: auto;
+  }
+
+  .lb-picker-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
+
+  .lb-close {
+    background: none;
+    border: 0;
+    font-size: 1.3em;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--primary-medium);
+  }
+
+  .lb-search {
+    width: 100%;
+    margin: 0 0 0.6em;
+  }
+
+  .lb-group {
+    margin-bottom: 0.75em;
+
+    h4 {
+      margin: 0 0 0.3em;
+      font-size: 0.72em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary-medium);
+    }
+  }
+
+  .lb-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    width: 100%;
+    padding: 0.35em 0.4em;
+    background: none;
+    border: 0;
+    border-radius: 0.25em;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+
+    &:hover {
+      background: var(--primary-very-low);
+    }
+  }
+
+  .lb-option-avatar {
+    position: relative;
+    flex: 0 0 1.9em;
+    width: 1.9em;
+    height: 1.9em;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--primary-low);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--primary-medium);
+  }
+
+  .lb-option-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .lb-option-pos {
+    color: var(--primary-medium);
+    font-size: 0.78em;
+  }
+
+  .lb-count {
+    color: var(--primary-medium);
+    font-size: 0.85em;
+    margin: 0.75em 0 0.5em;
+  }
+
+  .lb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .lb-preview {
+    pre {
+      background: var(--primary-very-low);
+      padding: 0.75em;
+      border-radius: 0.3em;
+      overflow-x: auto;
+      font-size: 0.85em;
+    }
+  }
+
+  .lb-muted {
+    color: var(--primary-medium);
+  }
+
+  .lb-error {
+    background: var(--danger-low);
+    border: 1px solid var(--danger);
+    border-radius: 0.35em;
+    padding: 0.7em 1em;
+    margin-bottom: 1em;
+  }
+
+  .lb-notice {
+    background: var(--success-low);
+    border: 1px solid var(--success);
+    border-radius: 0.35em;
+    padding: 0.7em 1em;
+    margin-bottom: 1em;
+  }
+
+  @media (max-width: 700px) {
+    .lb-pitch {
+      max-width: none;
+    }
+
+    .lb-picker {
+      max-width: none;
+    }
+  }
+}

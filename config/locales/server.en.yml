@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    lineup_builder_enabled: "Enable the lineup builder at /lineup."
+    lineup_builder_players_url: "Endpoint the squad is read from. Defaults to the players plugin's first-team list."
+    lineup_builder_default_formation: "Formation selected when the page opens, e.g. 4-4-2."
+    lineup_builder_title: "Heading on the builder page."
